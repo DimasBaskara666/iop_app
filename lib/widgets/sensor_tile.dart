@@ -1,54 +1,53 @@
 import 'package:flutter/material.dart';
-import '../models/sensor_data.dart';
 
 class SensorTile extends StatelessWidget {
-  final SensorData sensor;
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final Map<String, String> additionalInfo;
 
-  const SensorTile({Key? key, required this.sensor}) : super(key: key);
+  const SensorTile({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    this.additionalInfo = const {},
+  });
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildInfoRow(
-                'Temperature:', '${sensor.temperature} °C', Colors.red),
-            _buildInfoRow('Humidity:', '${sensor.humidity} %', Colors.blue),
-            _buildInfoRow('Motion Detected:', sensor.motion ? 'Yes' : 'No',
-                Colors.orange),
-            _buildInfoRow(
-                'Fire Detected:', sensor.fire ? 'Yes' : 'No', Colors.red),
-            _buildInfoRow(
-                'Water Detected:', sensor.water ? 'Yes' : 'No', Colors.teal),
-            _buildInfoRow('Door Locked:',
-                sensor.doorLocked ? 'Locked' : 'Unlocked', Colors.green),
-            _buildInfoRow(
-                'Lamp Status:', sensor.lampOn ? 'On' : 'Off', Colors.amber),
+            Row(
+              children: [
+                Icon(icon, size: 32, color: Colors.orangeAccent),
+                SizedBox(width: 16),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 4),
+                    Text(subtitle),
+                  ],
+                ),
+              ],
+            ),
+            if (additionalInfo.isNotEmpty) ...[
+              SizedBox(height: 12),
+              ...additionalInfo.entries.map((entry) => Text(
+                    '${entry.key}: ${entry.value}',
+                    style: TextStyle(fontSize: 14),
+                  )),
+            ],
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildInfoRow(String label, String value, Color color) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Text(
-            value,
-            style: TextStyle(color: color),
-          ),
-        ],
       ),
     );
   }
