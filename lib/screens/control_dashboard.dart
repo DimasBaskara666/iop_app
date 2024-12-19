@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../services/sensor_service.dart';
-import '../models/sensor_data.dart';
 import '../widgets/control_card.dart';
 
 class ControlDashboard extends StatefulWidget {
