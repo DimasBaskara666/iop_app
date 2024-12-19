@@ -1,34 +1,37 @@
 class SensorData {
   final String id;
-  final double temperature;
-  final double humidity;
-  final bool motion;
-  final bool fire;
-  final bool water;
-  final bool doorLocked;
-  final bool lampOn;
+  final double? temperature;
+  final double? humidity;
+  final bool? waterSensor;
+  final bool? motionSensor;
+  final bool? doorLocked;
+  final bool? door;
+  final bool? lamp;
+  final String? createdAt;
 
   SensorData({
     required this.id,
-    required this.temperature,
-    required this.humidity,
-    required this.motion,
-    required this.fire,
-    required this.water,
-    required this.doorLocked,
-    required this.lampOn,
+    this.temperature,
+    this.humidity,
+    this.waterSensor,
+    this.motionSensor,
+    this.doorLocked,
+    this.door,
+    this.lamp,
+    this.createdAt,
   });
 
   factory SensorData.fromJson(Map<String, dynamic> json) {
     return SensorData(
-      id: json['id'],
-      temperature: json['temperature'].toDouble(),
-      humidity: json['humidity'].toDouble(),
-      motion: json['motion'],
-      fire: json['fire'],
-      water: json['water'],
+      id: json['id'].toString(),
+      temperature: json['temperature']?.toDouble(),
+      humidity: json['humidity']?.toDouble(),
+      waterSensor: json['water_sensor'],
+      motionSensor: json['motion_sensor'],
       doorLocked: json['door_locked'],
-      lampOn: json['lamp_on'],
+      door: json['door'],
+      lamp: json['lamp'],
+      createdAt: json['created_at'],
     );
   }
 }
