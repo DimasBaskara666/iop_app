@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iop_app/screens/home_dashboard.dart';
+import '../screens/splashscreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'IoT App',
       theme: ThemeData(primarySwatch: Colors.blue),
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: SplashScreen(),
     );
   }
 }

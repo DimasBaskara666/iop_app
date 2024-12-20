@@ -3,6 +3,7 @@ import 'control_dashboard.dart';
 import 'sensor_dashboard.dart';
 import '../services/sensor_service.dart';
 import '../models/sensor_data.dart';
+import '../utils/page_transition.dart';
 
 class HomePage extends StatelessWidget {
   final SensorService _sensorService = SensorService();
@@ -61,9 +62,9 @@ class HomePage extends StatelessWidget {
                       label: 'Monitoring',
                       onTap: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => SensorDashboard()));
+                          context,
+                          SlidePageRoute(page: SensorDashboard()),
+                        );
                       },
                     ),
                     SizedBox(height: 10),
@@ -71,9 +72,9 @@ class HomePage extends StatelessWidget {
                       label: 'Controlling',
                       onTap: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => ControlDashboard()));
+                          context,
+                          SlidePageRoute(page: ControlDashboard()),
+                        );
                       },
                     ),
                   ],
