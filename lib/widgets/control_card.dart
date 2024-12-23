@@ -6,6 +6,9 @@ class ControlCard extends StatelessWidget {
   final IconData icon;
   final Color color;
   final bool switchControl;
+  final bool switchValue; // Tambahkan properti untuk nilai switch
+  final ValueChanged<bool>?
+      onSwitchChanged; // Callback untuk perubahan nilai switch
   final VoidCallback? onTap;
 
   const ControlCard({
@@ -15,6 +18,8 @@ class ControlCard extends StatelessWidget {
     required this.icon,
     required this.color,
     this.switchControl = false,
+    this.switchValue = false,
+    this.onSwitchChanged, // Callback baru untuk switch
     this.onTap,
   }) : super(key: key);
 
@@ -45,10 +50,9 @@ class ControlCard extends StatelessWidget {
             ),
             if (switchControl)
               Switch(
-                value: subtitle.toLowerCase() == 'on' || subtitle.toLowerCase() == 'locked',
-                onChanged: (value) {
-                  if (onTap != null) onTap!();
-                },
+                value: switchValue, // Gunakan switchValue untuk nilai
+                activeColor: Colors.orangeAccent,
+                onChanged: onSwitchChanged, // Callback perubahan switch
               ),
           ],
         ),

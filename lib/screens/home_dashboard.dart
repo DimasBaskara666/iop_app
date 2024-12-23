@@ -7,7 +7,7 @@ import '../utils/page_transition.dart';
 
 class HomePage extends StatelessWidget {
   final SensorService _sensorService = SensorService();
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,14 +93,17 @@ class HomePage extends StatelessWidget {
                         stream: Stream.periodic(Duration(seconds: 5))
                             .asyncMap((_) => _sensorService.fetchSensorData()),
                         builder: (context, snapshot) {
-                          final isLampOn = snapshot.hasData && snapshot.data!.isNotEmpty
-                              ? snapshot.data!.first.lamp ?? false
-                              : false;
-                          
+                          final isLampOn =
+                              snapshot.hasData && snapshot.data!.isNotEmpty
+                                  ? snapshot.data!.first.lamp ?? false
+                                  : false;
+
                           return ControlCard(
                             title: 'Lamp',
                             subtitle: isLampOn ? 'ON' : 'OFF',
-                            icon: isLampOn ? Icons.lightbulb : Icons.lightbulb_outline,
+                            icon: isLampOn
+                                ? Icons.lightbulb
+                                : Icons.lightbulb_outline,
                             color: Colors.amber.shade100,
                             onTap: () {}, // Action for Lamp
                           );
@@ -113,10 +116,11 @@ class HomePage extends StatelessWidget {
                         stream: Stream.periodic(Duration(seconds: 5))
                             .asyncMap((_) => _sensorService.fetchSensorData()),
                         builder: (context, snapshot) {
-                          final isDoorLocked = snapshot.hasData && snapshot.data!.isNotEmpty
-                              ? snapshot.data!.first.doorLocked ?? false
-                              : false;
-                          
+                          final isDoorLocked =
+                              snapshot.hasData && snapshot.data!.isNotEmpty
+                                  ? snapshot.data!.first.doorLocked ?? false
+                                  : false;
+
                           return ControlCard(
                             title: 'Lock Door',
                             subtitle: isDoorLocked ? 'LOCKED' : 'UNLOCKED',

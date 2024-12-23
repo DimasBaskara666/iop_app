@@ -151,7 +151,15 @@ class _ControlDashboardState extends State<ControlDashboard> {
                     icon: Icons.lightbulb,
                     color: Colors.amber.shade100,
                     switchControl: true,
-                    onTap: _toggleLamp,
+                    switchValue:
+                        _lampOn, // Gunakan state _lampOn sebagai nilai Switch
+                    onSwitchChanged: (value) async {
+                      try {
+                        await _toggleLamp(); // Panggil fungsi untuk mengubah status Lamp
+                      } catch (e) {
+                        // Tangani error jika diperlukan
+                      }
+                    },
                   ),
                   SizedBox(height: 10),
                   // Lock Door Control
@@ -161,8 +169,17 @@ class _ControlDashboardState extends State<ControlDashboard> {
                     icon: Icons.lock,
                     color: Colors.red.shade100,
                     switchControl: true,
-                    onTap: _toggleDoorLock,
+                    switchValue:
+                        _doorLocked, // Gunakan state _doorLocked sebagai nilai Switch
+                    onSwitchChanged: (value) async {
+                      try {
+                        await _toggleDoorLock(); // Panggil fungsi untuk mengubah status Lock Door
+                      } catch (e) {
+                        // Tangani error jika diperlukan
+                      }
+                    },
                   ),
+
                   SizedBox(height: 10),
                   // Door Control
                   ControlCard(
@@ -173,7 +190,14 @@ class _ControlDashboardState extends State<ControlDashboard> {
                         : Icons.door_front_door,
                     color: Colors.blue.shade100,
                     switchControl: true,
-                    onTap: _toggleDoor,
+                    switchValue: _doorOpen, // Atur nilai switch dari state
+                    onSwitchChanged: (value) async {
+                      try {
+                        await _toggleDoor(); // Pastikan status diperbarui melalui API
+                      } catch (e) {
+                        // Handle error jika perlu
+                      }
+                    },
                   ),
                 ],
               ),

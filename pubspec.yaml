@@ -37,6 +37,7 @@ dependencies:
   supabase_flutter: ^2.8.1
   http: ^1.2.2
   provider: ^6.1.2
+  web_socket_channel: ^3.0.1
 
 dev_dependencies:
   flutter_test:

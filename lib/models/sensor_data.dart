@@ -17,7 +17,7 @@ class SensorData {
     this.motionSensor,
     this.doorLocked,
     this.door,
-    this.lamp,
+    this.lamp,  
     this.createdAt,
   });
 
