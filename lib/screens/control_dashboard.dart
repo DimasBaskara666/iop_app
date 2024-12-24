@@ -148,7 +148,7 @@ class _ControlDashboardState extends State<ControlDashboard> {
                   ControlCard(
                     title: 'Lamp',
                     subtitle: _lampOn ? 'On' : 'Off',
-                    icon: Icons.lightbulb,
+                    icon: _lampOn ? Icons.lightbulb : Icons.lightbulb_outline,
                     color: Colors.amber.shade100,
                     switchControl: true,
                     switchValue:
@@ -166,7 +166,7 @@ class _ControlDashboardState extends State<ControlDashboard> {
                   ControlCard(
                     title: 'Lock Door',
                     subtitle: _doorLocked ? 'Locked' : 'Unlocked',
-                    icon: Icons.lock,
+                    icon: _doorLocked ? Icons.lock : Icons.lock_open,
                     color: Colors.red.shade100,
                     switchControl: true,
                     switchValue:
