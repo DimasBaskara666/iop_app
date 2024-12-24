@@ -37,7 +37,8 @@ dependencies:
   supabase_flutter: ^2.8.1
   http: ^1.2.2
   provider: ^6.1.2
-  web_socket_channel: ^3.0.1
+  fl_chart: ^0.69.2
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:

@@ -39,6 +39,19 @@ class _SensorDashboardState extends State<SensorDashboard> {
     }
   }
 
+  String _buildTemperatureText(double? temperature) {
+    if (temperature == null) return 'N/A';
+
+    final temp = temperature.toStringAsFixed(1);
+    if (temperature > 28) {
+      return '$temp °C|red'; // Hot temperature
+    } else if (temperature < 20) {
+      return '$temp °C|blue'; // Cold temperature
+    } else {
+      return '$temp °C|green'; // Normal temperature
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,10 +68,10 @@ class _SensorDashboardState extends State<SensorDashboard> {
                 final sensor = _sensors[index];
                 return SensorTile(
                   title: 'Sensor ${sensor.id}',
-                  subtitle: 'Time: ${sensor.createdAt}'
-                      '\nTemperature: ${sensor.temperature?.toStringAsFixed(1) ?? 'N/A'} °C',
+                  subtitle: 'Time: ${sensor.createdAt}',
                   icon: Icons.thermostat,
                   additionalInfo: {
+                    'Temperature': _buildTemperatureText(sensor.temperature),
                     'Humidity':
                         '${sensor.humidity?.toStringAsFixed(1) ?? 'N/A'}%',
                     'Motion': sensor.motionSensor == true

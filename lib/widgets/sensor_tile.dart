@@ -31,7 +31,8 @@ class SensorTile extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 4),
                     Text(subtitle),
@@ -41,14 +42,36 @@ class SensorTile extends StatelessWidget {
             ),
             if (additionalInfo.isNotEmpty) ...[
               SizedBox(height: 12),
-              ...additionalInfo.entries.map((entry) => Text(
-                    '${entry.key}: ${entry.value}',
-                    style: TextStyle(fontSize: 14),
-                  )),
+              ...additionalInfo.entries.map((entry) {
+                final parts = entry.value.split('|');
+                final text = '${entry.key}: ${parts[0]}';
+                final color = parts.length > 1 ? _getColor(parts[1]) : null;
+
+                return Text(
+                  text,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: color,
+                  ),
+                );
+              }),
             ],
           ],
         ),
       ),
     );
+  }
+
+  Color _getColor(String colorName) {
+    switch (colorName) {
+      case 'red':
+        return Colors.red;
+      case 'blue':
+        return Colors.blue;
+      case 'green':
+        return Colors.green;
+      default:
+        return Colors.black;
+    }
   }
 }
