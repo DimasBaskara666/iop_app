@@ -13,9 +13,30 @@ class SensorTile extends StatelessWidget {
     this.additionalInfo = const {},
   });
 
+  Color _getCardColor() {
+    // Get temperature value from additionalInfo
+    final tempEntry = additionalInfo['Temperature'];
+    if (tempEntry == null) return Colors.white;
+
+    final parts = tempEntry.split('|');
+    if (parts.length < 2) return Colors.white;
+
+    switch (parts[1]) {
+      case 'red':
+        return Colors.red.shade50; // Light red for hot temperature
+      case 'blue':
+        return Colors.blue.shade50; // Light blue for cold temperature
+      case 'green':
+        return Colors.green.shade50; // Light green for normal temperature
+      default:
+        return Colors.white;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: _getCardColor(), // Set card color based on temperature
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Padding(
         padding: EdgeInsets.all(16),

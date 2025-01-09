@@ -12,10 +12,10 @@ class ControlDashboard extends StatefulWidget {
 class _ControlDashboardState extends State<ControlDashboard> {
   final SensorService _sensorService = SensorService();
 
-  // State variables untuk Door Lock dan Lamp
-  bool _doorLocked = true;
-  bool _lampOn = false;
-  bool _doorOpen = false;
+  // State variables untuk kontrol
+  bool _doorLocked = false; // Status solenoid door lock
+  bool _lampOn = false; // Status LED
+  bool _doorOpen = false; // Status servo door
 
   // Sensor ID yang akan digunakan untuk update ke API
   String? sensorId;
@@ -26,7 +26,14 @@ class _ControlDashboardState extends State<ControlDashboard> {
   @override
   void initState() {
     super.initState();
-    _fetchInitialStatus(); // Ambil status awal dari API
+    _sensorService.connect(); // Connect to MQTT broker
+    _fetchInitialStatus();
+  }
+
+  @override
+  void dispose() {
+    _sensorService.dispose(); // Clean up MQTT connection
+    super.dispose();
   }
 
   /// Mengambil status awal dari sensor terbaru
@@ -67,8 +74,12 @@ class _ControlDashboardState extends State<ControlDashboard> {
       setState(() {
         _doorLocked = !_doorLocked;
       });
+      // Tambahkan feedback ke user
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Door ${_doorLocked ? 'Locked' : 'Unlocked'}')),
+      );
     } catch (e) {
-      _showError('Failed to update door lock: $e');
+      _showError('Failed to toggle door lock: $e');
     }
   }
 
@@ -84,8 +95,12 @@ class _ControlDashboardState extends State<ControlDashboard> {
       setState(() {
         _lampOn = !_lampOn;
       });
+      // Tambahkan feedback ke user
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Lamp turned ${_lampOn ? 'On' : 'Off'}')),
+      );
     } catch (e) {
-      _showError('Failed to update lamp status: $e');
+      _showError('Failed to toggle lamp: $e');
     }
   }
 
@@ -101,8 +116,12 @@ class _ControlDashboardState extends State<ControlDashboard> {
       setState(() {
         _doorOpen = !_doorOpen;
       });
+      // Tambahkan feedback ke user
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Door ${_doorOpen ? 'Opened' : 'Closed'}')),
+      );
     } catch (e) {
-      _showError('Failed to update door status: $e');
+      _showError('Failed to toggle door: $e');
     }
   }
 
